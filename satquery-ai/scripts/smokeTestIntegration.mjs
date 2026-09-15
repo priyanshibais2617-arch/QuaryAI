@@ -38,7 +38,7 @@ async function runSmokeTest() {
   // 2. Test Real Backend Mode (VITE_USE_REAL_BACKEND = true)
   console.log('\n--- 2. Testing Real FastAPI Backend Mode & Auth Enforcement ---');
   process.env.VITE_USE_REAL_BACKEND = 'true';
-  process.env.VITE_API_BASE_URL = 'http://localhost:8000';
+  process.env.VITE_API_BASE_URL = process.env.VITE_API_BASE_URL || 'http://localhost:8000';
 
   // 2a. Unauthenticated request to protected endpoint should fail with 401
   setAuthToken(null);

@@ -87,10 +87,9 @@ app = FastAPI(
 )
 
 # CORS configuration
-origins = settings.get_cors_origins()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins if "*" not in origins else ["*"],
+    allow_origins=["*"],  # Allows requests from any origin, including Vercel
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -380,5 +379,6 @@ def root_endpoint():
 
 
 @app.get("/health", tags=["Health"])
+@app.get("/api/health", tags=["Health"])
 def health_check():
     return {"status": "healthy"}

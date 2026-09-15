@@ -26,12 +26,12 @@ export const getAuthToken = () => {
 
 const getApiBaseUrl = () => {
   if (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_API_BASE_URL) {
-    return import.meta.env.VITE_API_BASE_URL;
+    return import.meta.env.VITE_API_BASE_URL.replace(/\/$/, '');
   }
   if (typeof process !== 'undefined' && process.env && process.env.VITE_API_BASE_URL) {
-    return process.env.VITE_API_BASE_URL;
+    return process.env.VITE_API_BASE_URL.replace(/\/$/, '');
   }
-  return 'http://localhost:8000';
+  return '';
 };
 
 const DEFAULT_TIMEOUT_MS = 15000;
@@ -39,7 +39,11 @@ const DEFAULT_TIMEOUT_MS = 15000;
 async function request(endpoint, options = {}) {
   const { timeout = DEFAULT_TIMEOUT_MS, headers = {}, token = null, ...fetchOptions } = options;
   const baseUrl = getApiBaseUrl();
-  const url = `${baseUrl.replace(/\/$/, '')}${endpoint}`;
+  const normalizedEndpoint = endpoint.startsWith('/') ? endpoint : `/${endpoint}`;
+  const cleanEndpoint = (baseUrl.endsWith('/api') && normalizedEndpoint.startsWith('/api/'))
+    ? normalizedEndpoint.slice(4)
+    : normalizedEndpoint;
+  const url = `${baseUrl}${cleanEndpoint}`;
 
   const activeToken = token || getAuthToken();
   const authHeaders = activeToken ? { Authorization: `Bearer ${activeToken}` } : {};
@@ -206,7 +210,8 @@ export async function downloadReportPdf(payload = null) {
 export async function checkBackendHealth() {
   try {
     const baseUrl = getApiBaseUrl();
-    const response = await fetch(`${baseUrl.replace(/\/$/, '')}/health`, {
+    const healthUrl = baseUrl ? `${baseUrl}/health` : '/api/health';
+    const response = await fetch(healthUrl, {
       method: 'GET',
     });
     return response.ok;

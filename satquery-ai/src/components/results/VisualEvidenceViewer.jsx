@@ -45,17 +45,18 @@ export default function VisualEvidenceViewer({
 
   // Resolve Image URLs for Slot 0 and Slot 1
   const resolveImageUrl = (slotIdx, defaultType) => {
+    const apiBase = ((typeof import.meta !== 'undefined' && import.meta.env?.VITE_API_BASE_URL) || '').replace(/\/$/, '');
     // 1. Direct preview URL from execution result or staged slot
     if (result?.preview_urls?.[slotIdx]) {
-      return `http://localhost:8000${result.preview_urls[slotIdx]}`;
+      return `${apiBase}${result.preview_urls[slotIdx]}`;
     }
     const slot = stagedSlots?.[slotIdx];
     if (slot?.preview_url) {
-      return `http://localhost:8000${slot.preview_url}`;
+      return `${apiBase}${slot.preview_url}`;
     }
     // 2. If file path exists, query the preview endpoint
     if (slot?.filePath) {
-      return `http://localhost:8000/api/v1/analysis/preview?file_path=${encodeURIComponent(slot.filePath)}`;
+      return `${apiBase}/api/v1/analysis/preview?file_path=${encodeURIComponent(slot.filePath)}`;
     }
     // 3. If raw file is an image
     if (slot?.rawFile && ['.png', '.jpg', '.jpeg'].some((ext) => slot.filename?.toLowerCase().endsWith(ext))) {
