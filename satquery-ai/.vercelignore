@@ -1,0 +1,17 @@
+# Dependencies and caches
+node_modules
+dist
+.git
+.git_backup
+.pytest_cache
+__pycache__
+*.pyc
+
+# Environment & secrets
+.env
+.env*.local
+
+# Tests and heavy assets
+backend/tests
+tests
+*.tif

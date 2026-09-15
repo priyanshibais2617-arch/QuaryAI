@@ -1,0 +1,20 @@
+# Dependencies and caches
+node_modules
+**/node_modules
+dist
+**/dist
+.git
+.git_backup
+.pytest_cache
+**/__pycache__
+*.pyc
+
+# Environment & secrets
+.env
+.env*.local
+
+# Tests, docs, sample tiffs
+backend/tests
+**/tests
+*.tif
+*.log

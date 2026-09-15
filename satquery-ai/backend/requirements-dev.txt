@@ -1,0 +1,5 @@
+# Full local development & offline AI model dependencies
+-r requirements.txt
+pytest>=8.0.0
+torch>=2.0.0
+transformers>=4.40.0
