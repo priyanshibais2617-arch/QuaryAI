@@ -1,0 +1,11 @@
+{
+  "name": "quary-ai-root",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "npm --prefix satquery-ai run dev",
+    "build": "npm --prefix satquery-ai run build",
+    "lint": "npm --prefix satquery-ai run lint",
+    "preview": "npm --prefix satquery-ai run preview"
+  }
+}

@@ -1,0 +1,48 @@
+# Dependencies
+node_modules/
+**/node_modules/
+
+# Production builds
+dist/
+**/dist/
+dist-ssr/
+
+# Environment and secrets
+.env
+.env*.local
+**/.env
+**/.env.*
+!**/.env.example
+
+# Python
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+**/.pytest_cache/
+.coverage
+htmlcov/
+venv/
+**/venv/
+.venv/
+**/ENV/
+
+# Logs
+*.log
+**/*.log
+npm-debug.log*
+yarn-debug.log*
+
+# Backups and temp files
+.git_backup/
+**/.git_backup/
+*.sw?
+.DS_Store
+Thumbs.db
+
+# IDE & Editor
+.vscode/*
+!.vscode/extensions.json
+.idea/
